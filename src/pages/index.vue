@@ -1,6 +1,6 @@
 <template>
   <p class="text-h4 mb-10">1. 개인정보 입력</p>
-  <v-form v-model="form" @keydown.enter="onSubmit" @submit.prevent="onSubmit">
+  <v-form v-model="form" @submit.prevent="onSubmit">
     <InputLabelDefault label="이메일">
       <v-text-field
         v-model="email"

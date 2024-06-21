@@ -1,6 +1,6 @@
 <template>
   <p class="text-h4 mb-10">2. 배송지 정보입력</p>
-  <v-form v-model="form" @keydown.enter="onSubmit" @submit.prevent="onSubmit">
+  <v-form v-model="form" @submit.prevent="onSubmit">
     <InputLabelDefault label="이름">
       <v-text-field
         v-model="name"
@@ -75,8 +75,7 @@ const onSubmit = () => {
       address: address.value.address,
       detailAddress: address.value.detailAddress,
     })
-    alert('배송지정보 입력')
-    // router.push('/payment')
+    router.push('/payment-info')
   }
 }
 </script>
