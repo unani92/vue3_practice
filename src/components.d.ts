@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    DaumPostCode: typeof import('./components/DaumPostCode.vue')['default']
     InputLabelDefault: typeof import('./components/InputLabelDefault.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
