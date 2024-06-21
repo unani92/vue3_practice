@@ -1,10 +1,15 @@
 <template>
   <v-app>
     <v-main>
-      <router-view />
+      <v-container class="fill-height">
+        <v-responsive
+          class="align-centerfill-height mx-auto"
+          max-width="900"
+        >
+          <router-view />
+        </v-responsive>
+      </v-container>
     </v-main>
-
-    <AppFooter />
   </v-app>
 </template>
 
