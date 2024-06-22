@@ -1,6 +1,6 @@
 <template>
   <p class="text-h4 mb-10">3. 결제 정보입력</p>
-  <v-form v-model="form">
+  <v-form v-model="form" @submit.prevent="onSubmit">
     <span>카드번호</span>
     <div
       class="py-4 position-relative card-input-container"
@@ -22,11 +22,17 @@
       </v-row>
       <span v-if="showCardNumInvalidUi" class="text-red text-caption">유효하지 않은 카드번호입니다.</span>
     </div>
+    <v-btn v-if="isValidCardNum" type="submit" class="text-none my-4" color="indigo-darken-3" size="x-large" variant="flat" block>
+      다음
+    </v-btn>
   </v-form>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import { usePaymentInfoStore } from '@/stores/app'
 
+const router = useRouter()
+const paymentInfoStore = usePaymentInfoStore()
 const form = ref(null)
 const cardNo1 = ref('')
 const cardNo2 = ref('')
@@ -50,6 +56,14 @@ const isValidCardNum = computed(() => {
   return multiplyNumArr.reduce((acc, cur) => acc + Number(cur), 0) % 10 === 0
 })
 const showCardNumInvalidUi = computed(() => form.value && !isValidCardNum.value)
+const onSubmit = () => {
+  if (form.value && isValidCardNum.value) {
+    paymentInfoStore.setPaymentInfo(
+      cardNo1.value + cardNo2.value + cardNo3.value + cardNo4.value
+    )
+    router.push('/submit-complete')
+  }
+}
 </script>
 <style scoped>
 .card-input-container {
