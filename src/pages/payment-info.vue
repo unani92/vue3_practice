@@ -2,21 +2,25 @@
   <p class="text-h4 mb-10">3. 결제 정보입력</p>
   <v-form v-model="form">
     <span>카드번호</span>
-    <div class="py-4">
+    <div
+      class="py-4 position-relative card-input-container"
+      :class="[showCardNumInvalidUi && 'border-b-lg border-error']"
+    >
       <v-row>
         <v-col cols="3">
-          <v-text-field v-model="cardNo1" :rules="[v => !!v || '필수 항목입니다', v => /^\d{4}$/.test(v)]" />
+          <v-text-field v-model="cardNo1" :rules="[v => !!v, v => /^\d{4}$/.test(v)]" />
         </v-col>
         <v-col cols="3">
-          <v-text-field v-model="cardNo2" :rules="[v => !!v || '필수 항목입니다', v => /^\d{4}$/.test(v)]" />
+          <v-text-field v-model="cardNo2" :rules="[v => !!v, v => /^\d{4}$/.test(v)]" />
         </v-col>
         <v-col cols="3">
-          <v-text-field v-model="cardNo3" :rules="[v => !!v || '필수 항목입니다', v => /^\d{4}$/.test(v)]" />
+          <v-text-field v-model="cardNo3" :rules="[v => !!v, v => /^\d{4}$/.test(v)]" />
         </v-col>
         <v-col cols="3">
-          <v-text-field v-model="cardNo4" :rules="[v => !!v || '필수 항목입니다', v => /^\d{4}$/.test(v)]" />
+          <v-text-field v-model="cardNo4" :rules="[v => !!v, v => /^\d{4}$/.test(v)]" />
         </v-col>
       </v-row>
+      <span v-if="showCardNumInvalidUi" class="text-red text-caption">유효하지 않은 카드번호입니다.</span>
     </div>
   </v-form>
 </template>
@@ -45,4 +49,10 @@ const isValidCardNum = computed(() => {
   })
   return multiplyNumArr.reduce((acc, cur) => acc + Number(cur), 0) % 10 === 0
 })
+const showCardNumInvalidUi = computed(() => form.value && !isValidCardNum.value)
 </script>
+<style scoped>
+.card-input-container {
+  height: 140px;
+}
+</style>
