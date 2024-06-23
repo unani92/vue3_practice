@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { ru } from 'vuetify/locale'
 
 const model = defineModel<{ zipCode: string; address: string; detailAddress?: string }>()
 onMounted(() => {

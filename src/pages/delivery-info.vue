@@ -68,9 +68,14 @@ const address = ref({
 const onClickPrev = () => {
   router.push('/')
 }
+const parsedPhoneNumber = computed(() => {
+  const value = phoneNumber.value.replace(/-/g, '').replace(/\s/g, '')
+  return [10, 11].includes(value.length) ? value.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3') : ''
+})
 const onSubmit = () => {
   if (form.value) {
-    deliveryInfoStore.setDeliveryInfo(name.value, phoneNumber.value, {
+    // phoneNumber.value에서 '-'를 제거하고 공백도 제거
+    deliveryInfoStore.setDeliveryInfo(name.value, parsedPhoneNumber.value, {
       zipCode: address.value.zipCode,
       address: address.value.address,
       detailAddress: address.value.detailAddress,
